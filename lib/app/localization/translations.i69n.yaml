@@ -1,0 +1,39 @@
+homePage:
+  seeAllButton: View all
+  weeksMenuButton: This weeks menu
+  recipesButton: Recipes
+  newShoppingListButton: New shopping list
+  yourRecentListsText: Your recent lists
+  welcome: Welcome
+weeklyMenuPage:
+  title: My menu
+  monday: Monday
+  tuesday: Tuesday
+  wednesday: Wednesday
+  thursday: Thursday
+  friday: Friday
+  saturday: Saturday
+  sunday: Sunday
+  breakfast: Breakfast
+  lunch: Lunch
+  dinner: Dinner
+  buildShoppingListButton: Build shopping list
+selectRecipesPage:
+  title: Select a recipe
+  noRecipes: No recipes found - create some recipes first
+recipesOverviewPage:
+  title: Recipes
+  createRecipeButton: Create a recipe
+addRecipePage:
+  title: Add a recipe
+  instructions: Instructions
+  ingredients: Ingredients
+  recipeName: Recipe name
+  saveRecipeButton: Save recipe
+  ingredientName: Name
+  ingredientAmount: Quantity
+  ingredientUnit: Unit
+  ingredientUnitHint: g, ml, ...
+  ingredientQuantityHint: e.g. 1
+  ingredientNameHint: flour, eggs, ...
+
