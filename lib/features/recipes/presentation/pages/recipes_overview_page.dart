@@ -6,6 +6,7 @@ import 'package:build_shopping_list/common/widget/simple_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:uuid/uuid.dart';
 
 class RecipesOverviewPage extends StatefulWidget {
   const RecipesOverviewPage({super.key});
@@ -89,7 +90,11 @@ class _RecipesOverviewPageState extends State<RecipesOverviewPage> {
                             name: '',
                             instructions: '',
                             ingredients: [
-                              Ingredient(id: 0, name: '', quantity: 1, unit: '')
+                              Ingredient(
+                                  id: const Uuid().v4(),
+                                  name: '',
+                                  quantity: 1,
+                                  unit: '')
                             ]));
                   },
                   child: Text(translations.createRecipeButton),

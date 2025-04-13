@@ -15,7 +15,7 @@ class Ingredient {
     this.unit,
   });
 
-  int? id;
+  String? id;
   String? name;
   int? quantity;
   String? unit;

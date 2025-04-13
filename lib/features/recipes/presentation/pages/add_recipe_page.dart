@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:uuid/uuid.dart';
 
 class AddRecipePage extends StatefulWidget {
   const AddRecipePage({super.key, required this.recipe});
@@ -51,7 +52,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
             setState(() {
               ingredients.add(
                 Ingredient(
-                  id: (ingredients.length),
+                  id: Uuid().v4(),
                   name: '',
                   quantity: 1,
                   unit: '',

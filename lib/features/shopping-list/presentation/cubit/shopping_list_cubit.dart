@@ -28,11 +28,13 @@ class ShoppingListCubit extends Cubit<ShoppingListState> {
         if (_shoppingList.items!.any((element) =>
             element.name == ingredient.name &&
             element.unit == ingredient.unit)) {
+          //todo: fix adding to quantity3
           int itemIndex = _shoppingList.items!.indexWhere((element) =>
               element.name == ingredient.name &&
               element.unit == ingredient.unit);
           ShoppingListItem item = _shoppingList.items![itemIndex];
           int quantity = (item.quantity ?? 0) + (ingredient.quantity ?? 0);
+          print('testing4 ' + quantity.toString());
 
           String shoppingListItemName =
               '${ingredient.name!}${quantity == 0 ? '' : ' ($quantity '}${ingredient.unit == '' ? '' : '${ingredient.unit})'}';
@@ -40,9 +42,10 @@ class ShoppingListCubit extends Cubit<ShoppingListState> {
           _shoppingList.items?.removeAt(itemIndex);
           _shoppingList.items!.add(ShoppingListItem(
             id: item.id,
-            name: shoppingListItemName,
-            // quantity: quantity,
-            // unit: ingredient.unit,
+            displayName: shoppingListItemName,
+            name: item.name,
+            quantity: quantity,
+            unit: ingredient.unit,
           ));
         } else {
           String shoppingListItemName =
@@ -50,9 +53,10 @@ class ShoppingListCubit extends Cubit<ShoppingListState> {
 
           _shoppingList.items!.add(ShoppingListItem(
             id: _shoppingList.items!.length,
-            name: shoppingListItemName,
-            // quantity: ingredient.quantity,
-            // unit: ingredient.unit,
+            displayName: shoppingListItemName,
+            name: ingredient.name,
+            quantity: ingredient.quantity,
+            unit: ingredient.unit,
           ));
         }
         // _shoppingList.items!.add(ShoppingListItem(
@@ -88,7 +92,16 @@ class ShoppingListCubit extends Cubit<ShoppingListState> {
   Future<void> reorderItems(int oldIndex, int newIndex) async {
     emit(const ShoppingListState.loading());
     final item = _shoppingList.items!.removeAt(oldIndex);
-    _shoppingList.items!.insert(newIndex, item);
+    // if (_shoppingList.items!.length > newIndex) {
+    //   _shoppingList.items!.insert(newIndex, item);
+    // } else {
+    //   _shoppingList.items!.add(item);
+    // }
+    if (newIndex > _shoppingList.items!.length) {
+      _shoppingList.items!.insert(newIndex - 1, item);
+    } else {
+      _shoppingList.items!.insert(newIndex, item);
+    }
     emit(ShoppingListState.success(_shoppingList));
   }
 

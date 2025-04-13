@@ -41,9 +41,9 @@ _i174.GetIt init(
     environment,
     environmentFilter,
   );
+  gh.factory<_i990.ShoppingListCubit>(() => _i990.ShoppingListCubit());
   gh.factory<_i1022.MenuRepository>(() => _i1022.MenuRepository());
   gh.factory<_i877.RecipeRepository>(() => _i877.RecipeRepository());
-  gh.factory<_i990.ShoppingListCubit>(() => _i990.ShoppingListCubit());
   gh.factory<_i183.GetRecipes>(
       () => _i183.GetRecipes(gh<_i877.RecipeRepository>()));
   gh.factory<_i840.CreateRecipe>(

@@ -54,7 +54,7 @@ class _ShooppingListPageState extends State<ShooppingListPage> {
                           // String text =
                           //     '${item.name!}${item.quantity == 0 ? '' : ' (${item.quantity} '}${item.unit == '' ? '' : '${item.unit})'}';
                           TextEditingController controller =
-                              TextEditingController(text: item.name);
+                              TextEditingController(text: item.displayName);
                           return CheckboxListTile(
                             key: ValueKey(item.id),
                             // dense: true,
@@ -85,12 +85,12 @@ class _ShooppingListPageState extends State<ShooppingListPage> {
                               // TODO: needs to work onchanged without updating the state
                               onChanged: (value) {
                                 _cubit.updateItem(
-                                    item: item.copyWith(name: value),
+                                    item: item.copyWith(displayName: value),
                                     emitStates: false);
                               },
                               onSubmitted: (value) {
                                 _cubit.updateItem(
-                                    item: item.copyWith(name: value),
+                                    item: item.copyWith(displayName: value),
                                     emitStates: true);
                               },
                             ),
@@ -99,7 +99,12 @@ class _ShooppingListPageState extends State<ShooppingListPage> {
                           );
                         },
                         onReorder: (int oldIndex, int newIndex) {
+                          print('oldIndex: $oldIndex, newIndex: $newIndex');
+                          // if (newIndex > oldIndex) {
                           _cubit.reorderItems(oldIndex, newIndex);
+                          // } else {
+                          //   _cubit.reorderItems(oldIndex, newIndex - 1);
+                          // }
                         },
                       );
                     },

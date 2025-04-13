@@ -13,23 +13,33 @@ const ShoppingListItemSchema = Schema(
   name: r'ShoppingListItem',
   id: -3816175988203906805,
   properties: {
-    r'id': PropertySchema(
+    r'displayName': PropertySchema(
       id: 0,
+      name: r'displayName',
+      type: IsarType.string,
+    ),
+    r'id': PropertySchema(
+      id: 1,
       name: r'id',
       type: IsarType.long,
     ),
+    r'isChecked': PropertySchema(
+      id: 2,
+      name: r'isChecked',
+      type: IsarType.bool,
+    ),
     r'name': PropertySchema(
-      id: 1,
+      id: 3,
       name: r'name',
       type: IsarType.string,
     ),
     r'quantity': PropertySchema(
-      id: 2,
+      id: 4,
       name: r'quantity',
       type: IsarType.long,
     ),
     r'unit': PropertySchema(
-      id: 3,
+      id: 5,
       name: r'unit',
       type: IsarType.string,
     )
@@ -46,6 +56,12 @@ int _shoppingListItemEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
+  {
+    final value = object.displayName;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   {
     final value = object.name;
     if (value != null) {
@@ -67,10 +83,12 @@ void _shoppingListItemSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeLong(offsets[0], object.id);
-  writer.writeString(offsets[1], object.name);
-  writer.writeLong(offsets[2], object.quantity);
-  writer.writeString(offsets[3], object.unit);
+  writer.writeString(offsets[0], object.displayName);
+  writer.writeLong(offsets[1], object.id);
+  writer.writeBool(offsets[2], object.isChecked);
+  writer.writeString(offsets[3], object.name);
+  writer.writeLong(offsets[4], object.quantity);
+  writer.writeString(offsets[5], object.unit);
 }
 
 ShoppingListItem _shoppingListItemDeserialize(
@@ -80,10 +98,12 @@ ShoppingListItem _shoppingListItemDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = ShoppingListItem(
-    id: reader.readLongOrNull(offsets[0]),
-    name: reader.readStringOrNull(offsets[1]),
-    quantity: reader.readLongOrNull(offsets[2]),
-    unit: reader.readStringOrNull(offsets[3]),
+    displayName: reader.readStringOrNull(offsets[0]),
+    id: reader.readLongOrNull(offsets[1]),
+    isChecked: reader.readBoolOrNull(offsets[2]) ?? false,
+    name: reader.readStringOrNull(offsets[3]),
+    quantity: reader.readLongOrNull(offsets[4]),
+    unit: reader.readStringOrNull(offsets[5]),
   );
   return object;
 }
@@ -96,12 +116,16 @@ P _shoppingListItemDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readLongOrNull(offset)) as P;
-    case 1:
       return (reader.readStringOrNull(offset)) as P;
-    case 2:
+    case 1:
       return (reader.readLongOrNull(offset)) as P;
+    case 2:
+      return (reader.readBoolOrNull(offset) ?? false) as P;
     case 3:
+      return (reader.readStringOrNull(offset)) as P;
+    case 4:
+      return (reader.readLongOrNull(offset)) as P;
+    case 5:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -110,6 +134,160 @@ P _shoppingListItemDeserializeProp<P>(
 
 extension ShoppingListItemQueryFilter
     on QueryBuilder<ShoppingListItem, ShoppingListItem, QFilterCondition> {
+  QueryBuilder<ShoppingListItem, ShoppingListItem, QAfterFilterCondition>
+      displayNameIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'displayName',
+      ));
+    });
+  }
+
+  QueryBuilder<ShoppingListItem, ShoppingListItem, QAfterFilterCondition>
+      displayNameIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'displayName',
+      ));
+    });
+  }
+
+  QueryBuilder<ShoppingListItem, ShoppingListItem, QAfterFilterCondition>
+      displayNameEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'displayName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ShoppingListItem, ShoppingListItem, QAfterFilterCondition>
+      displayNameGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'displayName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ShoppingListItem, ShoppingListItem, QAfterFilterCondition>
+      displayNameLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'displayName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ShoppingListItem, ShoppingListItem, QAfterFilterCondition>
+      displayNameBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'displayName',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ShoppingListItem, ShoppingListItem, QAfterFilterCondition>
+      displayNameStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'displayName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ShoppingListItem, ShoppingListItem, QAfterFilterCondition>
+      displayNameEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'displayName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ShoppingListItem, ShoppingListItem, QAfterFilterCondition>
+      displayNameContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'displayName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ShoppingListItem, ShoppingListItem, QAfterFilterCondition>
+      displayNameMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'displayName',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ShoppingListItem, ShoppingListItem, QAfterFilterCondition>
+      displayNameIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'displayName',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<ShoppingListItem, ShoppingListItem, QAfterFilterCondition>
+      displayNameIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'displayName',
+        value: '',
+      ));
+    });
+  }
+
   QueryBuilder<ShoppingListItem, ShoppingListItem, QAfterFilterCondition>
       idIsNull() {
     return QueryBuilder.apply(this, (query) {
@@ -180,6 +358,16 @@ extension ShoppingListItemQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<ShoppingListItem, ShoppingListItem, QAfterFilterCondition>
+      isCheckedEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'isChecked',
+        value: value,
       ));
     });
   }
